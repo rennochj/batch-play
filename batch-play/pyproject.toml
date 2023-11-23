@@ -6,7 +6,7 @@ authors = ["Jim Conner <c_rennochj@outlook.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.9"
 pandas = "^2.1.3"
 numpy = "^1.26.2"
 openpyxl = "3.1.2"

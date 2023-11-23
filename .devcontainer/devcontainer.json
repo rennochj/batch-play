@@ -6,17 +6,18 @@
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"mounts": [ 
         "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
-        "source=/Users/rennochj/OneDrive/sample-data,target=/data,type=bind",
-        "source=/Users/rennochj/OneDrive/sample-data,target=/publish,type=bind",
-        "source=/Users/rennochj/.docker,target=/home/vscode/.docker,type=bind"
+        "source=${localEnv:BATCH_PLAY_DATA_PATH},target=/data,type=bind",
+        "source=${localEnv:BATCH_PLAY_DATA_PATH},target=/publish,type=bind"
     ],
     "containerEnv": {
-        "POETRY_VIRTUALENVS_IN_PROJECT": "true"
+        "POETRY_VIRTUALENVS_IN_PROJECT": "true",
+        "BATCH_PLAY_DATA_PATH": "${localEnv:BATCH_PLAY_DATA_PATH}"
     },
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-azuretools.vscode-docker"
+                "ms-azuretools.vscode-docker",
+                "ms-vscode.makefile-tools"
             ]
         }
     },
