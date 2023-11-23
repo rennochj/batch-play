@@ -8,7 +8,6 @@
         "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
         "source=/Users/rennochj/OneDrive/sample-data,target=/data,type=bind",
         "source=/Users/rennochj/OneDrive/sample-data,target=/publish,type=bind",
-        "source=/Users/rennochj/.git,target=/home/vscode/.git,type=bind",
         "source=/Users/rennochj/.docker,target=/home/vscode/.docker,type=bind"
     ],
     "containerEnv": {
