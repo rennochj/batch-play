@@ -12,7 +12,7 @@ ENV POETRY_NO_INTERACTION=1 \
 
 WORKDIR /app
 
-COPY batch-play/pyproject.toml batch-play/poetry.lock ./
+COPY app/pyproject.toml app/poetry.lock ./
 RUN touch README.md
 
 RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-root --compile
@@ -28,6 +28,6 @@ ENV VIRTUAL_ENV=/app/.venv \
 
 COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
-COPY batch-play/batch_play/ ./batch-play
+COPY app/batch_play/ ./batch-play
 
 # ENTRYPOINT ["python", "-m", "batch_play"]
