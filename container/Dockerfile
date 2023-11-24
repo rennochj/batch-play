@@ -1,9 +1,33 @@
-FROM python:3.9.18
 
-RUN pip install poetry
+# Builder -------------------------------------------------------------------------------------------------------------
 
-RUN mkdir /batch-play
-ADD ../batch-play /batch-play
-WORKDIR /batch-play
-RUN poetry install
+FROM python:3.11-buster as builder
 
+RUN pip install poetry==1.7.1
+
+ENV POETRY_NO_INTERACTION=1 \
+    POETRY_VIRTUALENVS_IN_PROJECT=1 \
+    POETRY_VIRTUALENVS_CREATE=1 \
+    POETRY_CACHE_DIR=/tmp/poetry_cache
+
+WORKDIR /app
+
+COPY batch-play/pyproject.toml batch-play/poetry.lock ./
+RUN touch README.md
+
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-root --compile
+
+# Run-time ------------------------------------------------------------------------------------------------------------
+
+FROM python:3.11-slim-buster as runtime
+
+WORKDIR /app
+
+ENV VIRTUAL_ENV=/app/.venv \
+    PATH="/app/.venv/bin:$PATH"
+
+COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
+
+COPY batch-play/batch_play/ ./batch-play
+
+# ENTRYPOINT ["python", "-m", "batch_play"]
