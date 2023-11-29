@@ -7,8 +7,12 @@
 	"mounts": [ 
         "source=/var/run/docker.sock,target=/var/run/docker-host.sock,type=bind",
         "source=${localEnv:BATCH_PLAY_DATA_PATH},target=/data,type=bind",
-        "source=${localEnv:BATCH_PLAY_DATA_PATH},target=/publish,type=bind"
+        "source=${localEnv:BATCH_PLAY_DATA_PATH},target=/publish,type=bind",
+        "source=${env:HOME}${env:USERPROFILE}/.kube,target=/usr/local/share/kube-localhost,type=bind"
     ],
+    "remoteEnv": {
+        "SYNC_LOCALHOST_KUBECONFIG": "true"
+    },    
     "containerEnv": {
         "POETRY_VIRTUALENVS_IN_PROJECT": "true",
         "BATCH_PLAY_DATA_PATH": "${localEnv:BATCH_PLAY_DATA_PATH}"
@@ -17,13 +21,15 @@
         "vscode": {
             "extensions": [
                 "ms-azuretools.vscode-docker",
-                "ms-vscode.makefile-tools"
+                "ms-vscode.makefile-tools",
+				"ms-kubernetes-tools.vscode-kubernetes-tools"
             ]
         }
     },
     "features": {
         "ghcr.io/devcontainers/features/github-cli:1": {},
-        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        
     }
     
 }

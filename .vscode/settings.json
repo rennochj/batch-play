@@ -2,5 +2,6 @@
     "workbench.colorCustomizations": {
         "titleBar.activeBackground": "#6b08b6" // Change this color!
       },
-      "window.titleBarStyle": "custom"      
+      "window.titleBarStyle": "custom",
+      "python.terminal.activateEnvInCurrentTerminal": true
 }

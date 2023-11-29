@@ -15,7 +15,7 @@ WORKDIR /app
 COPY app/pyproject.toml app/poetry.lock ./
 RUN touch README.md
 
-RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --no-root --compile
+RUN --mount=type=cache,target=$POETRY_CACHE_DIR poetry install --without dev --no-root --compile
 
 # Run-time ------------------------------------------------------------------------------------------------------------
 
@@ -30,4 +30,3 @@ COPY --from=builder ${VIRTUAL_ENV} ${VIRTUAL_ENV}
 
 COPY app/batch_play/ ./batch-play
 
-# ENTRYPOINT ["python", "-m", "batch_play"]
